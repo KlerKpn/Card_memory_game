@@ -3,6 +3,7 @@ import classes from './Field.module.scss'
 import Card from './../../UI/card/card'
 import StartPage from './../startPage/startPage'
 import { cards } from '../../data/cardsData'
+import FinishPage from './../FinishPage/FinishPage';
 
 
 class Field extends React.Component {
@@ -14,7 +15,8 @@ class Field extends React.Component {
         id: null,
         counter: 0,
         start: true,
-        opened: 0
+        opened: 0,
+        totalCardOpened: 0
     }
 
 
@@ -24,11 +26,31 @@ class Field extends React.Component {
         })
     }
 
+    retryHandler = () => {
+        this.setState({
+            elements: this.cardList(),
+            prevCard: null,
+            id: null,
+            counter: 0,
+            start: false,
+            opened: 0,
+            totalCardOpened: 0
+        })
+    }
+
+    backToStartHandler = () => {
+        this.retryHandler()
+        this.setState({
+            start: true
+        })
+    }
 
     flip = (elem, power, index) => {
         if (this.state.counter < 2) {
             if (elem.style.transform === "rotateY(0deg)" || elem.style.transform === "") {
                 elem.style.transform = "rotateY(180deg)"
+                this.setState({ totalCardOpened: this.state.totalCardOpened + 1 })
+                console.log(this.state.totalCardOpened)
                 if (this.state.prevCard === null) {
                     this.setState({
                         prevCard: power,
@@ -50,6 +72,7 @@ class Field extends React.Component {
                             })
                         }, 1000)
                     } else {
+                        console.log('dfsafsdf')
                         this.setState({
                             prevCard: null,
                             id: null,
@@ -65,7 +88,7 @@ class Field extends React.Component {
 
     cardList = () => (
         this.state.data.sort(() => Math.random() - 0.5).map(el => {
-            const id = Math.random()*(2^52)
+            const id = Math.random() * (2 ^ 52)
             return (
                 <Card
                     key={id}
@@ -82,12 +105,19 @@ class Field extends React.Component {
         return (
             <div className={classes.Field}>
                 {
-                    this.state.opened !== 52
-                    ? 
                     this.state.start
                         ? <StartPage start={() => this.setState({ start: false })} />
                         : this.state.elements
-                    : null
+                }
+                {
+                    this.state.opened !== cards.length
+                        ? null
+                        : <FinishPage
+                            total={this.state.totalCardOpened}
+                            retry={this.retryHandler}
+                            toStart={this.backToStartHandler}
+                        />
+
                 }
             </div>
         )

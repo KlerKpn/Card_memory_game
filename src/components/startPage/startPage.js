@@ -11,9 +11,10 @@ const startPage = props =>(
             <p className={classes.description}>
                 На столе вся колода без джокеров<br/>
                 Необходимо найти пары по силе (2/2, Q/Q), нет зависимости от мастей<br/>
-                Каждый матч меcтоположение карт меняется
+                Каждый матч меcтоположение карт меняется<br/>
+                Игра расчитана на игру с копьютера
             </p>
-            <button onClick={props.start} className={'btn btn-primary'}>
+            <button onClick={props.start} className={classes.btn}>
                 Начать
             </button>
         </div>

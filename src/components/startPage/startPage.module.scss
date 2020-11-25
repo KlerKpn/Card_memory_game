@@ -15,3 +15,15 @@
     font-size: 58px;
     font-family: 'Cinzel Decorative', cursive;
 }
+
+.btn{
+    padding: 10px 25px;
+    color: white;
+    border: none;
+    background: rgb(113, 135, 182);
+    border-radius: 10px;
+        &:focus, &:hover{
+            outline: none;
+            box-shadow:  0 0 5px white;
+        }
+}
