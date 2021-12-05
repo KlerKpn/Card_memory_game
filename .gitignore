@@ -26,3 +26,10 @@ yarn-error.log*
 .firebaserc
 firebase.json
 .eslintcache
+
+
+firebase
+firebase.json
+.eslintcache
+.firebaserc
+.firebase
